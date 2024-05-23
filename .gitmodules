@@ -1,0 +1,6 @@
+[submodule "3rdParty/clap-wrapper"]
+	path = 3rdParty/clap-wrapper
+	url = git@github.com:cmajor-lang/clap-wrapper.git
+[submodule "3rdParty/clap"]
+	path = 3rdParty/clap
+	url = git@github.com:free-audio/clap.git
