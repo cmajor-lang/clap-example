@@ -75,14 +75,26 @@ else()
 endif()
 
 if (CLAP_WRAPPER_PATH)
-    set(VST3_TARGET ${CMAJ_TARGET_NAME}_vst3)
-    add_library(${VST3_TARGET} MODULE)
-    target_link_libraries(${VST3_TARGET} PRIVATE cmaj_clap)
-    target_sources(${VST3_TARGET} PRIVATE entry.cpp)
-    target_add_vst3_wrapper(TARGET ${VST3_TARGET} OUTPUT_NAME ${CMAJ_CMAKE_PROJECT_NAME})
-    target_compile_definitions(${VST3_TARGET} PRIVATE CMAJOR_DLL=1)
-
     if (APPLE)
+        set(VST3_TARGET ${CMAJ_TARGET_NAME}_vst3)
+        add_library(${VST3_TARGET} MODULE)
+        target_link_libraries(${VST3_TARGET} PRIVATE cmaj_clap)
+        target_sources(${VST3_TARGET} PRIVATE entry.cpp)
+        target_add_vst3_wrapper(TARGET ${VST3_TARGET} OUTPUT_NAME ${CMAJ_CMAKE_PROJECT_NAME})
+        target_compile_definitions(${VST3_TARGET} PRIVATE CMAJOR_DLL=1)
+
+        set(STANDALONE_TARGET ${CMAJ_TARGET_NAME}_standalone)
+        add_executable(${STANDALONE_TARGET})
+        target_sources(${STANDALONE_TARGET} PRIVATE entry.cpp)
+        target_link_libraries(${STANDALONE_TARGET} PRIVATE cmaj_clap)
+        target_compile_definitions(${STANDALONE_TARGET} PRIVATE CMAJOR_DLL=1)
+        target_add_standalone_wrapper(
+            TARGET ${STANDALONE_TARGET}
+            OUTPUT_NAME "${CMAJ_TARGET_NAME}"
+            STATICALLY_LINKED_CLAP_ENTRY True
+            PLUGIN_ID "${CMAJ_TARGET_BUNDLE_ID}"
+        )
+
         set(AUV2_TARGET ${CMAJ_TARGET_NAME}_auv2)
         add_library(${AUV2_TARGET} MODULE)
         target_link_libraries(${AUV2_TARGET} PRIVATE cmaj_clap)
