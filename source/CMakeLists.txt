@@ -89,10 +89,12 @@ if (CLAP_WRAPPER_PATH)
         target_link_libraries(${STANDALONE_TARGET} PRIVATE cmaj_clap)
         target_compile_definitions(${STANDALONE_TARGET} PRIVATE CMAJOR_DLL=1)
         target_add_standalone_wrapper(
-            TARGET ${STANDALONE_TARGET}
+            TARGET "${STANDALONE_TARGET}"
             OUTPUT_NAME "${CMAJ_TARGET_NAME}"
             STATICALLY_LINKED_CLAP_ENTRY True
             PLUGIN_ID "${CMAJ_TARGET_BUNDLE_ID}"
+            BUNDLE_IDENTIFIER "${CMAJ_TARGET_NAME}_standalone"
+            BUNDLE_VERSION "${CMAJ_TARGET_PATCH_VERSION}"
         )
 
         set(AUV2_TARGET ${CMAJ_TARGET_NAME}_auv2)
@@ -100,10 +102,10 @@ if (CLAP_WRAPPER_PATH)
         target_link_libraries(${AUV2_TARGET} PRIVATE cmaj_clap)
         target_sources(${AUV2_TARGET} PRIVATE entry.cpp)
         target_add_auv2_wrapper(
-            TARGET ${AUV2_TARGET}
-            OUTPUT_NAME ${CMAJ_CMAKE_PROJECT_NAME}
-            BUNDLE_IDENTIFIER ${CMAJ_TARGET_BUNDLE_ID}
-            BUNDLE_VERSION ${CMAJ_TARGET_PATCH_VERSION}
+            TARGET "${AUV2_TARGET}"
+            OUTPUT_NAME "${CMAJ_CMAKE_PROJECT_NAME}"
+            BUNDLE_IDENTIFIER "${CMAJ_TARGET_BUNDLE_ID}"
+            BUNDLE_VERSION "${CMAJ_TARGET_PATCH_VERSION}"
             MANUFACTURER_NAME "${CMAJ_TARGET_MANUFACTURER}"
             MANUFACTURER_CODE "${CMAJ_TARGET_MANUFACTURER_CODE}"
             SUBTYPE_CODE "${CMAJ_TARGET_PLUGIN_CODE}"
